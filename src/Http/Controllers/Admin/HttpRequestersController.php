@@ -16,4 +16,93 @@ class HttpRequestersController extends RestManagerController
      * @var string
      */
     public $class = HttpRequesterManager::class;
+
+    /**
+     * Generate.
+     *
+     * @param int                      $id
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function send(int $id, Request $request)
+    {
+        /** @var \Railken\Amethyst\Managers\HttpRequesterSenderManager */
+        $manager = $this->manager;
+
+        /** @var \Railken\Amethyst\Models\HttpRequesterSender */
+        $email = $manager->getRepository()->findOneById($id);
+
+        if ($email == null) {
+            return $this->response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $result = $manager->send($email, (array) $request->input('data'));
+
+        if (!$result->ok()) {
+            return $this->error(['errors' => $result->getSimpleErrors()]);
+        }
+
+        return $this->success([]);
+    }
+
+    /**
+     * Render raw template.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function render(Request $request)
+    {
+        /** @var \Railken\Amethyst\Managers\HttpRequesterSenderManager */
+        $manager = $this->manager;
+
+        $dbm = (new DataBuilderManager());
+
+        /** @var \Railken\Amethyst\Models\DataBuilder */
+        $data_builder = $dbm->getRepository()->findOneById(intval($request->input('data_builder_id')));
+
+        if ($data_builder == null) {
+            return $this->error([['message' => 'invalid data_builder_id']]);
+        }
+
+        $data = (array) $request->input('data');
+
+        $result = $dbm->build($data_builder, $data);
+
+        if (!$result->ok()) {
+            return $this->error(['errors' => $result->getSimpleErrors()]);
+        }
+
+        $data = array_merge($data, $result->getResource());
+
+        if ($result->ok()) {
+            $result = $manager->render(
+                $data_builder,
+                [
+                    'url' => strval($request->input('url')),
+                    'method' => strval($request->input('method')),
+                    'headers' => strval($request->input('headers')),
+                    'body' => strval($request->input('body')),
+                ],
+                $data
+            );
+        }
+
+        if (!$result->ok()) {
+            return $this->error(['errors' => $result->getSimpleErrors()]);
+        }
+
+        $resource = $result->getResource();
+
+        return $this->success(['resource' => [
+            'url'    => base64_encode($resource['url']),
+            'method'    => base64_encode($resource['method']),
+            'headers'    => base64_encode($resource['headers']),
+            'body'    => base64_encode($resource['body']),
+        ]]);
+    }
+}
+
 }

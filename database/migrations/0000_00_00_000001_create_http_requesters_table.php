@@ -16,6 +16,12 @@ class CreateHttpRequestersTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('description')->nullable();
+            $table->integer('data_builder_id')->unsigned()->nullable();
+            $table->foreign('data_builder_id')->references('id')->on(Config::get('amethyst.data-builder.data.data-builder.table'));
+            $table->string('url');
+            $table->string('method');
+            $table->text('headers')->nullable();
+            $table->text('body')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
