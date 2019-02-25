@@ -18,6 +18,7 @@ class HttpRequesterServiceProvider extends CommonServiceProvider
         $this->loadExtraRoutes();
 
         $this->app->register(\Railken\Amethyst\Providers\DataBuilderServiceProvider::class);
+        $this->app->register(\Railken\Amethyst\Providers\HttpLogServiceProvider::class);
         $this->app->register(\Railken\Template\TemplateServiceProvider::class);
     }
 

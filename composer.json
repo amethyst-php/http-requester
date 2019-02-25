@@ -6,7 +6,9 @@
     "require": {
         "php": ">=7.1",
         "railken/amethyst-common": "0.1.*",
-        "railken/amethyst-data-builder": "0.1.*"
+        "railken/amethyst-data-builder": "0.1.*",
+        "railken/amethyst-http-log": "0.1.*",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",

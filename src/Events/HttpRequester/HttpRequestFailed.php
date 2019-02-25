@@ -19,12 +19,12 @@ class HttpRequestFailed
      * Create a new event instance.
      *
      * @param \Railken\Amethyst\Models\HttpRequester $httpRequester
-     * @param \Exception                           $exception
-     * @param \Railken\Lem\Contracts\AgentContract $agent
+     * @param \Exception                             $exception
+     * @param \Railken\Lem\Contracts\AgentContract   $agent
      */
     public function __construct(HttpRequester $httpRequester, Exception $exception, AgentContract $agent = null)
     {
-        $this->email = $httpRequester;
+        $this->httpRequester = $httpRequester;
         $this->error = (object) [
             'class'   => get_class($exception),
             'message' => $exception->getMessage(),

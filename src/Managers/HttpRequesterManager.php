@@ -4,16 +4,13 @@ namespace Railken\Amethyst\Managers;
 
 use Illuminate\Support\Collection;
 use Railken\Amethyst\Common\ConfigurableManager;
-use Railken\Amethyst\Exceptions;
-use Railken\Amethyst\Jobs\HttpRequester\SendHttpRequester;
+use Railken\Amethyst\Jobs\HttpRequester\SendHttpRequest;
 use Railken\Amethyst\Models\DataBuilder;
 use Railken\Amethyst\Models\HttpRequester;
 use Railken\Bag;
 use Railken\Lem\Manager;
 use Railken\Lem\Result;
-use Symfony\Component\Yaml\Yaml;
 use Railken\Template\Generators\TextGenerator;
-
 
 class HttpRequesterManager extends Manager
 {
@@ -28,7 +25,7 @@ class HttpRequesterManager extends Manager
      * Send an http request..
      *
      * @param HttpRequester $httpRequester
-     * @param array       $data
+     * @param array         $data
      *
      * @return \Railken\Lem\Contracts\ResultContract
      */
@@ -36,7 +33,7 @@ class HttpRequesterManager extends Manager
     {
         $result = (new DataBuilderManager())->validateRaw($httpRequester->data_builder, $data);
 
-        dispatch(new SendHttpRequester($httpRequester, $data, $this->getAgent()));
+        dispatch(new SendHttpRequest($httpRequester, $data, $this->getAgent()));
 
         return $result;
     }
@@ -75,5 +72,4 @@ class HttpRequesterManager extends Manager
 
         return $result;
     }
-}
 }

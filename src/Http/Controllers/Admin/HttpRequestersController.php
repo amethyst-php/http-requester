@@ -2,9 +2,12 @@
 
 namespace Railken\Amethyst\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
 use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
+use Railken\Amethyst\Managers\DataBuilderManager;
 use Railken\Amethyst\Managers\HttpRequesterManager;
+use Symfony\Component\HttpFoundation\Response;
 
 class HttpRequestersController extends RestManagerController
 {
@@ -27,10 +30,10 @@ class HttpRequestersController extends RestManagerController
      */
     public function send(int $id, Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\HttpRequesterSenderManager */
+        /** @var \Railken\Amethyst\Managers\HttpRequesterManager */
         $manager = $this->manager;
 
-        /** @var \Railken\Amethyst\Models\HttpRequesterSender */
+        /** @var \Railken\Amethyst\Models\HttpRequester */
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
@@ -55,7 +58,7 @@ class HttpRequestersController extends RestManagerController
      */
     public function render(Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\HttpRequesterSenderManager */
+        /** @var \Railken\Amethyst\Managers\HttpRequesterManager */
         $manager = $this->manager;
 
         $dbm = (new DataBuilderManager());
@@ -81,10 +84,10 @@ class HttpRequestersController extends RestManagerController
             $result = $manager->render(
                 $data_builder,
                 [
-                    'url' => strval($request->input('url')),
-                    'method' => strval($request->input('method')),
+                    'url'     => strval($request->input('url')),
+                    'method'  => strval($request->input('method')),
                     'headers' => strval($request->input('headers')),
-                    'body' => strval($request->input('body')),
+                    'body'    => strval($request->input('body')),
                 ],
                 $data
             );
@@ -97,12 +100,10 @@ class HttpRequestersController extends RestManagerController
         $resource = $result->getResource();
 
         return $this->success(['resource' => [
-            'url'    => base64_encode($resource['url']),
-            'method'    => base64_encode($resource['method']),
-            'headers'    => base64_encode($resource['headers']),
+            'url'     => base64_encode($resource['url']),
+            'method'  => base64_encode($resource['method']),
+            'headers' => base64_encode($resource['headers']),
             'body'    => base64_encode($resource['body']),
         ]]);
     }
-}
-
 }

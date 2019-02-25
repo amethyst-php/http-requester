@@ -17,11 +17,11 @@ class HttpRequestSent
      * Create a new event instance.
      *
      * @param \Railken\Amethyst\Models\HttpRequester $httpRequester
-     * @param \Railken\Lem\Contracts\AgentContract $agent
+     * @param \Railken\Lem\Contracts\AgentContract   $agent
      */
     public function __construct(HttpRequester $httpRequester, AgentContract $agent = null)
     {
-        $this->email = $httpRequester;
+        $this->httpRequester = $httpRequester;
         $this->agent = $agent;
     }
 }

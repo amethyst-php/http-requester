@@ -2,20 +2,21 @@
 
 namespace Railken\Amethyst\Jobs\HttpRequester;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 use Railken\Amethyst\Events\HttpRequester\HttpRequestFailed;
 use Railken\Amethyst\Events\HttpRequester\HttpRequestSent;
 use Railken\Amethyst\Managers\DataBuilderManager;
+use Railken\Amethyst\Managers\HttpLogManager;
 use Railken\Amethyst\Managers\HttpRequesterManager;
 use Railken\Amethyst\Models\HttpRequester;
 use Railken\Bag;
 use Railken\Lem\Contracts\AgentContract;
-use GuzzleHttp\Psr7\Request;
+use Symfony\Component\Yaml\Yaml;
 
 class SendHttpRequest implements ShouldQueue
 {
@@ -28,13 +29,13 @@ class SendHttpRequest implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param HttpRequester                          $httpRequester
+     * @param HttpRequester                        $httpRequester
      * @param array                                $data
      * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(HttpRequester $httpRequester, array $data = [], AgentContract $agent = null)
     {
-        $this->email = $httpRequester;
+        $this->httpRequester = $httpRequester;
         $this->data = $data;
         $this->agent = $agent;
     }
@@ -45,10 +46,11 @@ class SendHttpRequest implements ShouldQueue
     public function handle()
     {
         $data = $this->data;
-        $httpRequester = $this->email;
+        $httpRequester = $this->httpRequester;
 
         $esm = new HttpRequesterManager();
         $dbm = new DataBuilderManager();
+        $lm = new HttpLogManager();
 
         $result = $dbm->build($httpRequester->data_builder, $data);
 
@@ -58,10 +60,10 @@ class SendHttpRequest implements ShouldQueue
 
         $data = $result->getResource();
         $result = $esm->render($httpRequester->data_builder, [
-            'body'        => $httpRequester->url,
-            'method'     => $httpRequester->method,
-            'headers'      => $httpRequester->headers,
-            'body'  => $httpRequester->recipients
+            'url'     => $httpRequester->url,
+            'method'  => $httpRequester->method,
+            'headers' => $httpRequester->headers,
+            'body'    => $httpRequester->body,
         ], $data);
 
         if (!$result->ok()) {
@@ -72,13 +74,26 @@ class SendHttpRequest implements ShouldQueue
 
         $request = new Request($bag->get('method'), $bag->get('url'), [
             'headers' => Yaml::parse($bag->get('headers')),
-            'body' => Yaml::parse($bag->get('body'))
+            'body'    => Yaml::parse($bag->get('body')),
         ]);
+
+        $time = microtime(true);
+
+        $client = new \GuzzleHttp\Client();
         $response = $client->send($request, [
-            'http_errors' => false
+            'http_errors' => false,
         ]);
 
-
+        $lm = new HttpLogManager();
+        $lm->create([
+            'method'   => $bag->get('method'),
+            'url'      => $bag->get('url'),
+            'ip'       => '127.0.0.1',
+            'status'   => $response->getStatusCode(),
+            'time'     => microtime(true) - $time,
+            'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => Yaml::parse($bag->get('body'))],
+            'response' => ['headers' => $response->getHeaders(), 'body' => $response->getBody()],
+        ]);
 
         event(new HttpRequestSent($httpRequester, $this->agent));
     }
