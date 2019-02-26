@@ -91,7 +91,7 @@ class SendHttpRequest implements ShouldQueue
             'ip'       => '127.0.0.1',
             'status'   => $response->getStatusCode(),
             'time'     => microtime(true) - $time,
-            'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => Yaml::parse($bag->get('body'))],
+            'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => $bag->get('body')],
             'response' => ['headers' => $response->getHeaders(), 'body' => $response->getBody()],
         ]);
 
