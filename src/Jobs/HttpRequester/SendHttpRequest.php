@@ -74,7 +74,7 @@ class SendHttpRequest implements ShouldQueue
 
         $request = new Request($bag->get('method'), $bag->get('url'), [
             'headers' => Yaml::parse($bag->get('headers')),
-            'body'    => Yaml::parse($bag->get('body')),
+            'body'    => $bag->get('body'),
         ]);
 
         $time = microtime(true);

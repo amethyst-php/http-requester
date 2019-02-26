@@ -23,14 +23,13 @@ class HttpRequesterSchema extends Schema
             Attributes\LongTextAttribute::make('description'),
             Attributes\BelongsToAttribute::make('data_builder_id')
                 ->setRelationName('data_builder')
-                ->setRelationManager(DataBuilderManager::class)
-                ->setRequired(true),
+                ->setRelationManager(DataBuilderManager::class),
             Attributes\TextAttribute::make('url')
                 ->setRequired(true),
             Attributes\TextAttribute::make('method')
                 ->setRequired(true),
             Attributes\YamlAttribute::make('headers'),
-            Attributes\YamlAttribute::make('body'),
+            Attributes\LongTextAttribute::make('body'),
             Attributes\CreatedAtAttribute::make(),
             Attributes\UpdatedAtAttribute::make(),
             Attributes\DeletedAtAttribute::make(),
