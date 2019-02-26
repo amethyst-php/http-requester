@@ -72,16 +72,15 @@ class SendHttpRequest implements ShouldQueue
 
         $bag = new Bag($result->getResource());
 
-        $request = new Request($bag->get('method'), $bag->get('url'), [
-            'headers' => Yaml::parse($bag->get('headers')),
-            'body'    => $bag->get('body'),
-        ]);
-
         $time = microtime(true);
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->send($request, [
-            'http_errors' => false,
+        $client = new \GuzzleHttp\Client([
+            'http_errors' => false
+        ]);
+
+        $response = $client->request($bag->get('method'), $bag->get('url'), [
+            'headers' => Yaml::parse($bag->get('headers')),
+            'body'    => $bag->get('body'),
         ]);
 
         $lm = new HttpLogManager();
