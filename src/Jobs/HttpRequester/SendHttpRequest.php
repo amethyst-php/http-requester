@@ -96,13 +96,14 @@ class SendHttpRequest implements ShouldQueue
         ]);
 
         $lm = new HttpLogManager();
-        $lm->create([
+        $lm->createOrFail([
             'method'   => $bag->get('method'),
             'url'      => $bag->get('url'),
             'ip'       => '127.0.0.1',
             'status'   => $response->getStatusCode(),
             'time'     => microtime(true) - $time,
-            'request'  => $testHandler->getRecords(),
+            'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => $bag->get('body')],
+            'testable'  => $testHandler->getRecords()[0]['message'],
             'response' => ['headers' => $response->getHeaders(), 'body' => $response->getBody()],
         ]);
 
