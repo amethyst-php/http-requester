@@ -2,12 +2,15 @@
 
 namespace Railken\Amethyst\Jobs\HttpRequester;
 
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\HandlerStack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
+use Namshi\Cuzzle\Middleware\CurlFormatterMiddleware;
 use Railken\Amethyst\Events\HttpRequester\HttpRequestFailed;
 use Railken\Amethyst\Events\HttpRequester\HttpRequestSent;
 use Railken\Amethyst\Managers\DataBuilderManager;
@@ -74,8 +77,17 @@ class SendHttpRequest implements ShouldQueue
 
         $time = microtime(true);
 
+        $testHandler = new TestHandler();
+
+        $logger = new Logger('guzzle.to.curl');
+        $logger->pushHandler($testHandler);
+
+        $handler = HandlerStack::create();
+        $handler->after('cookies', new CurlFormatterMiddleware($logger));
+
         $client = new \GuzzleHttp\Client([
-            'http_errors' => false
+            'http_errors' => false,
+            'handler'     => $handler,
         ]);
 
         $response = $client->request($bag->get('method'), $bag->get('url'), [
@@ -90,7 +102,7 @@ class SendHttpRequest implements ShouldQueue
             'ip'       => '127.0.0.1',
             'status'   => $response->getStatusCode(),
             'time'     => microtime(true) - $time,
-            'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => $bag->get('body')],
+            'request'  => $testHandler->getRecords(),
             'response' => ['headers' => $response->getHeaders(), 'body' => $response->getBody()],
         ]);
 
