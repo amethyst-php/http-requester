@@ -103,7 +103,7 @@ class SendHttpRequest implements ShouldQueue
             'status'   => $response->getStatusCode(),
             'time'     => microtime(true) - $time,
             'request'  => ['headers' => Yaml::parse($bag->get('headers')), 'body' => $bag->get('body')],
-            'testable'  => $testHandler->getRecords()[0]['message'],
+            'testable' => $testHandler->getRecords()[0]['message'],
             'response' => ['headers' => $response->getHeaders(), 'body' => $response->getBody()],
         ]);
 
