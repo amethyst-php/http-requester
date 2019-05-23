@@ -72,7 +72,7 @@ class HttpRequesterManager extends Manager
 
         return $result;
     }
-    
+
     /**
      * Describe extra actions.
      *
