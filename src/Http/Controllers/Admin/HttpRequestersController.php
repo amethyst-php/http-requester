@@ -28,7 +28,7 @@ class HttpRequestersController extends RestManagerController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function send(int $id, Request $request)
+    public function execute(int $id, Request $request)
     {
         /** @var \Railken\Amethyst\Managers\HttpRequesterManager */
         $manager = $this->manager;
