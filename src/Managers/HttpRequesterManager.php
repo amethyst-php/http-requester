@@ -72,4 +72,18 @@ class HttpRequesterManager extends Manager
 
         return $result;
     }
+    
+    /**
+     * Describe extra actions.
+     *
+     * @return array
+     */
+    public function getDescriptor()
+    {
+        return [
+            'actions' => [
+                'executor',
+            ],
+        ];
+    }
 }
