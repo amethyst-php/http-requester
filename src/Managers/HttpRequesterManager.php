@@ -29,7 +29,7 @@ class HttpRequesterManager extends Manager
      *
      * @return \Railken\Lem\Contracts\ResultContract
      */
-    public function send(HttpRequester $httpRequester, array $data = [])
+    public function execute(HttpRequester $httpRequester, array $data = [])
     {
         $result = (new DataBuilderManager())->validateRaw($httpRequester->data_builder, $data);
 

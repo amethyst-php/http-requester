@@ -40,7 +40,7 @@ class HttpRequestersController extends RestManagerController
             return $this->response('', Response::HTTP_NOT_FOUND);
         }
 
-        $result = $manager->send($email, (array) $request->input('data'));
+        $result = $manager->execute($email, (array) $request->input('data'));
 
         if (!$result->ok()) {
             return $this->error(['errors' => $result->getSimpleErrors()]);
