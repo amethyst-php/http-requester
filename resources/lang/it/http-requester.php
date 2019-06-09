@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'HttpRequester',
-    'description' => 'HttpRequester',
+    'name' => 'Http Requester',
+    'description' => 'Http Requester',
     'attributes' => []
 ];
