@@ -32,7 +32,7 @@ class HttpRequesterTest extends BaseTest
         $result = $manager->create(HttpRequesterFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
         $resource = $result->getResource();
-        $result = $manager->send($resource, [
+        $result = $manager->execute($resource, [
             'name' => 'a',
         ]);
         $this->assertEquals(true, $result->ok());

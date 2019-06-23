@@ -38,7 +38,7 @@ class HttpRequesterTest extends BaseTest
         $result = $manager->create(HttpRequesterFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
         $resource = $result->getResource();
-        $response = $this->callAndTest('POST', route('admin.http-requester.send', ['id' => $resource->id]), ['data' => ['name' => $resource->name]], 200);
+        $response = $this->callAndTest('POST', route('admin.http-requester.execute', ['id' => $resource->id]), ['data' => ['name' => $resource->name]], 200);
     }
 
     public function testRender()
