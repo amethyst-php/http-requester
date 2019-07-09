@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Jobs\HttpRequester;
+namespace Amethyst\Jobs\HttpRequester;
 
 use GuzzleHttp\HandlerStack;
 use Illuminate\Bus\Queueable;
@@ -11,12 +11,12 @@ use Illuminate\Queue\SerializesModels;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Namshi\Cuzzle\Middleware\CurlFormatterMiddleware;
-use Railken\Amethyst\Events\HttpRequester\HttpRequestFailed;
-use Railken\Amethyst\Events\HttpRequester\HttpRequestSent;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\HttpLogManager;
-use Railken\Amethyst\Managers\HttpRequesterManager;
-use Railken\Amethyst\Models\HttpRequester;
+use Amethyst\Events\HttpRequester\HttpRequestFailed;
+use Amethyst\Events\HttpRequester\HttpRequestSent;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\HttpLogManager;
+use Amethyst\Managers\HttpRequesterManager;
+use Amethyst\Models\HttpRequester;
 use Railken\Bag;
 use Railken\Lem\Contracts\AgentContract;
 use Symfony\Component\Yaml\Yaml;

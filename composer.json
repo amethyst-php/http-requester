@@ -1,13 +1,13 @@
 {
-    "name": "railken/amethyst-http-requester",
+    "name": "amethyst/http-requester",
     "type": "library",
     "keywords": ["laravel", "amethyst", "amethyst-http-requester", "http-requester"],
     "license": "MIT",
     "require": {
         "php": ">=7.1",
-        "railken/amethyst-common": "0.1.*",
-        "railken/amethyst-data-builder": "0.1.*",
-        "railken/amethyst-http-log": "0.1.*",
+        "amethyst/common": "0.1.*",
+        "amethyst/data-builder": "0.1.*",
+        "amethyst/http-log": "0.1.*",
         "guzzlehttp/guzzle": "^6.3",
         "namshi/cuzzle": "^2.0"
     },
@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4" : {
-            "Railken\\Amethyst\\" : "src/"
+            "Amethyst\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": { 
-            "Railken\\Amethyst\\Tests\\": "tests/" 
+            "Amethyst\\Tests\\": "tests/" 
         }
     },
     "extra": {
@@ -32,7 +32,7 @@
         },
         "laravel": {
             "providers": [
-                "Railken\\Amethyst\\Providers\\HttpRequesterServiceProvider"
+                "Amethyst\\Providers\\HttpRequesterServiceProvider"
             ]
         }
     }

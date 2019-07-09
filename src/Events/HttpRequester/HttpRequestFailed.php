@@ -1,10 +1,10 @@
 <?php
 
-namespace Railken\Amethyst\Events\HttpRequester;
+namespace Amethyst\Events\HttpRequester;
 
 use Exception;
 use Illuminate\Queue\SerializesModels;
-use Railken\Amethyst\Models\HttpRequester;
+use Amethyst\Models\HttpRequester;
 use Railken\Lem\Contracts\AgentContract;
 
 class HttpRequestFailed
@@ -18,7 +18,7 @@ class HttpRequestFailed
     /**
      * Create a new event instance.
      *
-     * @param \Railken\Amethyst\Models\HttpRequester $httpRequester
+     * @param \Amethyst\Models\HttpRequester $httpRequester
      * @param \Exception                             $exception
      * @param \Railken\Lem\Contracts\AgentContract   $agent
      */

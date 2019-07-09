@@ -1,12 +1,12 @@
 <?php
 
-namespace Railken\Amethyst\Managers;
+namespace Amethyst\Managers;
 
 use Illuminate\Support\Collection;
-use Railken\Amethyst\Common\ConfigurableManager;
-use Railken\Amethyst\Jobs\HttpRequester\SendHttpRequest;
-use Railken\Amethyst\Models\DataBuilder;
-use Railken\Amethyst\Models\HttpRequester;
+use Amethyst\Common\ConfigurableManager;
+use Amethyst\Jobs\HttpRequester\SendHttpRequest;
+use Amethyst\Models\DataBuilder;
+use Amethyst\Models\HttpRequester;
 use Railken\Bag;
 use Railken\Lem\Manager;
 use Railken\Lem\Result;

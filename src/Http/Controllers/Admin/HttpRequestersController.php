@@ -1,12 +1,12 @@
 <?php
 
-namespace Railken\Amethyst\Http\Controllers\Admin;
+namespace Amethyst\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
-use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\HttpRequesterManager;
+use Amethyst\Api\Http\Controllers\RestManagerController;
+use Amethyst\Api\Http\Controllers\Traits as RestTraits;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\HttpRequesterManager;
 use Symfony\Component\HttpFoundation\Response;
 
 class HttpRequestersController extends RestManagerController
@@ -30,10 +30,10 @@ class HttpRequestersController extends RestManagerController
      */
     public function execute(int $id, Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\HttpRequesterManager */
+        /** @var \Amethyst\Managers\HttpRequesterManager */
         $manager = $this->manager;
 
-        /** @var \Railken\Amethyst\Models\HttpRequester */
+        /** @var \Amethyst\Models\HttpRequester */
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
@@ -58,12 +58,12 @@ class HttpRequestersController extends RestManagerController
      */
     public function render(Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\HttpRequesterManager */
+        /** @var \Amethyst\Managers\HttpRequesterManager */
         $manager = $this->manager;
 
         $dbm = (new DataBuilderManager());
 
-        /** @var \Railken\Amethyst\Models\DataBuilder */
+        /** @var \Amethyst\Models\DataBuilder */
         $data_builder = $dbm->getRepository()->findOneById(intval($request->input('data_builder_id')));
 
         if ($data_builder == null) {

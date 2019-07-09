@@ -1,11 +1,11 @@
 <?php
 
-namespace Railken\Amethyst\Tests\Managers;
+namespace Amethyst\Tests\Managers;
 
-use Railken\Amethyst\Fakers\HttpRequesterFaker;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\HttpRequesterManager;
-use Railken\Amethyst\Tests\BaseTest;
+use Amethyst\Fakers\HttpRequesterFaker;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\HttpRequesterManager;
+use Amethyst\Tests\BaseTest;
 use Railken\Lem\Support\Testing\TestableBaseTrait;
 
 class HttpRequesterTest extends BaseTest
