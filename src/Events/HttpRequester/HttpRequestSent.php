@@ -2,8 +2,8 @@
 
 namespace Amethyst\Events\HttpRequester;
 
-use Illuminate\Queue\SerializesModels;
 use Amethyst\Models\HttpRequester;
+use Illuminate\Queue\SerializesModels;
 use Railken\Lem\Contracts\AgentContract;
 
 class HttpRequestSent
@@ -16,8 +16,8 @@ class HttpRequestSent
     /**
      * Create a new event instance.
      *
-     * @param \Amethyst\Models\HttpRequester $httpRequester
-     * @param \Railken\Lem\Contracts\AgentContract   $agent
+     * @param \Amethyst\Models\HttpRequester       $httpRequester
+     * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(HttpRequester $httpRequester, AgentContract $agent = null)
     {

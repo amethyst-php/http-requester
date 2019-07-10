@@ -2,11 +2,11 @@
 
 namespace Amethyst\Managers;
 
-use Illuminate\Support\Collection;
 use Amethyst\Common\ConfigurableManager;
 use Amethyst\Jobs\HttpRequester\SendHttpRequest;
 use Amethyst\Models\DataBuilder;
 use Amethyst\Models\HttpRequester;
+use Illuminate\Support\Collection;
 use Railken\Bag;
 use Railken\Lem\Manager;
 use Railken\Lem\Result;

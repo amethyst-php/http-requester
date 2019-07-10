@@ -2,6 +2,12 @@
 
 namespace Amethyst\Jobs\HttpRequester;
 
+use Amethyst\Events\HttpRequester\HttpRequestFailed;
+use Amethyst\Events\HttpRequester\HttpRequestSent;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\HttpLogManager;
+use Amethyst\Managers\HttpRequesterManager;
+use Amethyst\Models\HttpRequester;
 use GuzzleHttp\HandlerStack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,12 +17,6 @@ use Illuminate\Queue\SerializesModels;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Namshi\Cuzzle\Middleware\CurlFormatterMiddleware;
-use Amethyst\Events\HttpRequester\HttpRequestFailed;
-use Amethyst\Events\HttpRequester\HttpRequestSent;
-use Amethyst\Managers\DataBuilderManager;
-use Amethyst\Managers\HttpLogManager;
-use Amethyst\Managers\HttpRequesterManager;
-use Amethyst\Models\HttpRequester;
 use Railken\Bag;
 use Railken\Lem\Contracts\AgentContract;
 use Symfony\Component\Yaml\Yaml;
