@@ -13,12 +13,12 @@ use Railken\Lem\Result;
 use Railken\Template\Generators\TextGenerator;
 
 /**
- * @method \Amethyst\Models\HttpRequester newEntity()
- * @method \Amethyst\Schemas\HttpRequesterSchema getSchema()
+ * @method \Amethyst\Models\HttpRequester                 newEntity()
+ * @method \Amethyst\Schemas\HttpRequesterSchema          getSchema()
  * @method \Amethyst\Repositories\HttpRequesterRepository getRepository()
- * @method \Amethyst\Serializers\HttpRequesterSerializer getSerializer()
- * @method \Amethyst\Validators\HttpRequesterValidator getValidator()
- * @method \Amethyst\Authorizers\HttpRequesterAuthorizer getAuthorizer()
+ * @method \Amethyst\Serializers\HttpRequesterSerializer  getSerializer()
+ * @method \Amethyst\Validators\HttpRequesterValidator    getValidator()
+ * @method \Amethyst\Authorizers\HttpRequesterAuthorizer  getAuthorizer()
  */
 class HttpRequesterManager extends Manager
 {
