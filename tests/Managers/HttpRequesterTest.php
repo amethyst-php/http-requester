@@ -28,6 +28,7 @@ class HttpRequesterTest extends BaseTest
 
     public function testSend()
     {
+        /** @var \Amethyst\Managers\HttpRequesterManager */
         $manager = $this->getManager();
         $result = $manager->create(HttpRequesterFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
@@ -40,6 +41,7 @@ class HttpRequesterTest extends BaseTest
 
     public function testRender()
     {
+        /** @var \Amethyst\Managers\HttpRequesterManager */
         $manager = $this->getManager();
         $result = $manager->create(HttpRequesterFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
