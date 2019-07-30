@@ -32,13 +32,15 @@ class HttpRequesterManager extends Manager
     /**
      * Send an http request..
      *
-     * @param HttpRequester $httpRequester
+     * @param HttpRequester|id $httpRequester
      * @param array         $data
      *
      * @return \Railken\Lem\Contracts\ResultContract
      */
-    public function execute(HttpRequester $httpRequester, array $data = [])
+    public function execute($httpRequester, array $data = [])
     {
+        $httpRequester = is_int($httpRequester) ? $this->getRepository()->findOneById($httpRequester) : $httpRequester;
+
         $result = (new DataBuilderManager())->validateRaw($httpRequester->data_builder, $data);
 
         dispatch(new SendHttpRequest($httpRequester, $data, $this->getAgent()));
