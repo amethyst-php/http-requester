@@ -32,7 +32,7 @@ class HttpRequesterManager extends Manager
     /**
      * Send an http request..
      *
-     * @param HttpRequester|id $httpRequester
+     * @param HttpRequester|int $httpRequester
      * @param array         $data
      *
      * @return \Railken\Lem\Contracts\ResultContract
