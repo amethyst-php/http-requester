@@ -2,7 +2,7 @@
 
 namespace Amethyst\Managers;
 
-use Amethyst\Common\ConfigurableManager;
+use Amethyst\Core\ConfigurableManager;
 use Amethyst\Jobs\HttpRequester\SendHttpRequest;
 use Amethyst\Models\DataBuilder;
 use Amethyst\Models\HttpRequester;
