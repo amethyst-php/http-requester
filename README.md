@@ -1,6 +1,6 @@
 # amethyst-http-requester
 
-[![Build Status](https://travis-ci.org/amethyst-php/http-requester.svg?branch=master)](https://travis-ci.org/amethyst-php/http-requester)
+[![Action Status](https://github.com/amethyst-php/http-requester/workflows/test/badge.svg)](https://github.com/amethyst-php/http-requester/actions)
 
 [Amethyst](https://github.com/amethyst-php/amethyst) package.
 
